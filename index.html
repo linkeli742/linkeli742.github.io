@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Linke Li</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --text: #1a1a18;
+      --text-muted: #6b6b64;
+      --text-light: #9a9a92;
+      --bg: #faf9f6;
+      --surface: #f2f1ed;
+      --border: #e0dfd8;
+      --accent: #2a4a8a;
+      --accent-light: #e8edf7;
+      --serif: 'EB Garamond', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      background: rgba(250, 249, 246, 0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+      padding: 0 2rem;
+    }
+    .nav-inner {
+      max-width: 760px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 52px;
+    }
+    .nav-name {
+      font-family: var(--serif);
+      font-size: 18px;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    main {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 2rem 6rem;
+    }
+
+    section { padding-top: 5rem; }
+
+    #about {
+      padding-top: 5rem;
+      display: grid;
+      grid-template-columns: 1fr 160px;
+      gap: 3rem;
+      align-items: start;
+    }
+    .hero-text h1 {
+      font-family: var(--serif);
+      font-size: 2.6rem;
+      font-weight: 400;
+      line-height: 1.15;
+      margin-bottom: 0.6rem;
+      letter-spacing: -0.01em;
+    }
+    .hero-affiliation {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .hero-affiliation::before {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 1px;
+      background: var(--border);
+    }
+    .hero-bio {
+      font-size: 15.5px;
+      color: var(--text-muted);
+      line-height: 1.8;
+      max-width: 520px;
+    }
+    .hero-links {
+      margin-top: 2rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      padding: 8px 18px;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: #1e3872; }
+    .btn-outline {
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      background: transparent;
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    .avatar-placeholder {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--serif);
+      font-size: 2.2rem;
+      color: var(--text-muted);
+      letter-spacing: 0.02em;
+      flex-shrink: 0;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .pub-list { display: flex; flex-direction: column; gap: 0; }
+    .pub-item {
+      padding: 1.25rem 0;
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 1rem;
+      align-items: start;
+    }
+    .pub-item:first-child { border-top: 1px solid var(--border); }
+    .pub-year {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-light);
+      padding-top: 2px;
+    }
+    .pub-content h4 {
+      font-family: var(--serif);
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.4;
+      margin-bottom: 0.25rem;
+    }
+    .pub-content .journal {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-top: 2px;
+    }
+    .pub-link {
+      font-size: 12px;
+      color: var(--accent);
+      text-decoration: none;
+      margin-top: 6px;
+      display: inline-block;
+    }
+    .pub-link:hover { text-decoration: underline; }
+    .pub-loading {
+      font-size: 14px;
+      color: var(--text-light);
+      padding: 1.5rem 0;
+    }
+    .pub-error {
+      font-size: 14px;
+      color: var(--text-muted);
+      padding: 1rem 1.25rem;
+      background: var(--surface);
+      border-radius: 6px;
+      border-left: 3px solid var(--border);
+    }
+    .pub-source-note {
+      font-size: 12px;
+      color: var(--text-light);
+      margin-top: 1.25rem;
+    }
+    .pub-source-note a { color: var(--accent); text-decoration: none; }
+    .pub-source-note a:hover { text-decoration: underline; }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .contact-item {
+      padding: 1.25rem 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--bg);
+    }
+    .contact-item .label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 0.4rem;
+    }
+    .contact-item a {
+      font-size: 14.5px;
+      color: var(--accent);
+      text-decoration: none;
+      display: block;
+    }
+    .contact-item a:hover { text-decoration: underline; }
+    .contact-item p { font-size: 14.5px; color: var(--text-muted); }
+
+    footer {
+      border-top: 1px solid var(--border);
+      margin-top: 6rem;
+      padding: 2rem;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-light);
+    }
+
+    @media (max-width: 600px) {
+      #about { grid-template-columns: 1fr; }
+      .avatar-placeholder { width: 90px; height: 90px; font-size: 1.6rem; order: -1; }
+      .hero-text h1 { font-size: 2rem; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .nav-links { gap: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#about" class="nav-name">Linke Li</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+
+  <section id="about">
+    <div class="hero-text">
+      <h1>Linke Li</h1>
+      <p class="hero-affiliation">PhD Student · Harvard T.H. Chan School of Public Health (Epidemiology)</p>
+      <p class="hero-bio">
+        Welcome! I am a doctoral student at the Harvard T.H. Chan School of Public Health (Epidemiology).
+        My work relates to public health, with a focus on statistical genetics and genetic epidemiology.
+        I am co-advised by Dr. Alkes Price and Dr. Liming Liang.
+      </p>
+      <div class="hero-links">
+        <a href="cv.pdf" class="btn btn-primary">Curriculum Vitae</a>
+        <a href="https://scholar.google.com/citations?hl=en&user=2vHoz2IAAAAJ&authuser=4" class="btn btn-outline" target="_blank" rel="noopener">Google Scholar</a>
+        <a href="https://orcid.org/0009-0002-6350-5121" class="btn btn-outline" target="_blank" rel="noopener">ORCID</a>
+        <a href="https://github.com/linkeli742" class="btn btn-outline" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+    <div class="avatar-placeholder">LL</div>
+  </section>
+
+  <section id="publications">
+    <p class="section-label">Publications</p>
+    <div id="pub-container">
+      <p class="pub-loading">Loading publications…</p>
+    </div>
+  </section>
+
+  <section id="contact">
+    <p class="section-label">Contact</p>
+    <div class="contact-grid">
+      <div class="contact-item">
+        <p class="label">Email</p>
+        <a href="mailto:linkeli@fas.harvard.edu">linkeli@fas.harvard.edu</a>
+        <a href="mailto:lilinke@broadinstitute.org">lilinke@broadinstitute.org</a>
+        <a href="mailto:lili0@mgh.harvard.edu">lili0@mgh.harvard.edu</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  © 2025 Linke Li · Built with GitHub Pages
+</footer>
+
+<script>
+(function () {
+  const ORCID_ID = '0009-0002-6350-5121';
+  const container = document.getElementById('pub-container');
+
+  function escHtml(str) {
+    return String(str || '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  function renderWorks(data) {
+    const works = (data.group || []).map(g => {
+      const summary = g['work-summary'][0];
+      const title = summary.title?.title?.value || 'Untitled';
+      const year = summary['publication-date']?.year?.value || '';
+      const journal = summary['journal-title']?.value || '';
+      let doi = null;
+      for (const id of (summary['external-ids']?.['external-id'] || [])) {
+        if (id['external-id-type'] === 'doi') { doi = id['external-id-value']; break; }
+      }
+      return { title, year, journal, doi };
+    });
+
+    works.sort((a, b) => (b.year || '0').localeCompare(a.year || '0'));
+
+    if (works.length === 0) {
+      container.innerHTML = `<p class="pub-error">No publications found on ORCID yet. <a href="https://orcid.org/${ORCID_ID}" target="_blank" rel="noopener">Add works to your ORCID profile</a> and the GitHub Action will sync them nightly.</p>`;
+      return;
+    }
+
+    const items = works.map(w => {
+      const url = w.doi ? `https://doi.org/${escHtml(w.doi)}` : `https://orcid.org/${ORCID_ID}`;
+      const label = w.doi ? 'DOI →' : 'View on ORCID →';
+      const journalHtml = w.journal ? `<p class="journal">${escHtml(w.journal)}</p>` : '';
+      return `<div class="pub-item">
+        <span class="pub-year">${escHtml(w.year)}</span>
+        <div class="pub-content">
+          <h4>${escHtml(w.title)}</h4>
+          ${journalHtml}
+          <a href="${url}" class="pub-link" target="_blank" rel="noopener">${label}</a>
+        </div>
+      </div>`;
+    }).join('');
+
+    container.innerHTML = `<div class="pub-list">${items}</div>
+      <p class="pub-source-note">Synced nightly from <a href="https://orcid.org/${ORCID_ID}" target="_blank" rel="noopener">ORCID</a>. Keep your ORCID profile updated and this list updates automatically.</p>`;
+  }
+
+  // Load from the local publications.json generated by the GitHub Action
+  fetch('publications.json')
+    .then(r => {
+      if (!r.ok) throw new Error('not found');
+      return r.json();
+    })
+    .then(renderWorks)
+    .catch(() => {
+      container.innerHTML = `<p class="pub-error">
+        Publications are synced nightly from ORCID. If you just set up the site, 
+        <a href="https://github.com/linkeli742/linkeli742.github.io/actions" target="_blank" rel="noopener">run the workflow manually</a> 
+        to generate the first snapshot. In the meantime, view publications on 
+        <a href="https://orcid.org/${ORCID_ID}" target="_blank" rel="noopener">ORCID</a> or 
+        <a href="https://scholar.google.com/citations?hl=en&user=2vHoz2IAAAAJ" target="_blank" rel="noopener">Google Scholar</a>.
+      </p>`;
+    });
+})();
+</script>
+
+</body>
+</html>
